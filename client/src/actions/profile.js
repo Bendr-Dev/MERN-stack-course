@@ -13,6 +13,8 @@ export const getCurrentProfile = () => async dispatch => {
             payload: response.data
         });
     } catch (error) {
+        dispatch({ type: CLEAR_PROFILE });
+
         dispatch({
             type: PROFILE_ERROR,
             payload: { msg: error.response.statusText, status: error.response.status }
@@ -39,18 +41,18 @@ export const getProfiles = () => async dispatch => {
 };
 
 // Get all users profiles
-export const getProfile = id => async dispatch => {
+export const getProfileById = userId => async dispatch => {
     try {
-        const response = await axios.get(`/api/profile/user/${id}`);
+        const response = await axios.get(`/api/profile/user/${userId}`);
 
         dispatch({
             type: GET_PROFILE,
             payload: response.data
         });
-    } catch (error) {
+    } catch (err) {
         dispatch({
             type: PROFILE_ERROR,
-            payload: { msg: error.response.statusText, status: error.response.status }
+            payload: { msg: err.response.statusText, status: err.response.status }
         });
     }
 };
