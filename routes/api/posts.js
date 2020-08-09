@@ -213,6 +213,8 @@ router.delete('/comment/:id/:comment_id', auth, async (request, response) => {
 
         post.comments.splice(removeIndex, 1);
 
+        await post.save();
+
         response.json(post.comments);
     } catch (error) {
         console.error(error.message);
